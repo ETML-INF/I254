@@ -1,0 +1,126 @@
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Qui c'est qui s'y colle ?</title>
+    <style>
+      body {
+        font-family: Arial;
+      }
+
+      .state0 {
+        font-size: 25px;
+        font-weight: bold;
+        text-align: center;
+        list-style-type: none;
+      }
+
+      .state1 {
+        font-size: 25px;
+        font-weight: bold;
+        text-align: left;
+        text-decoration: line-through;
+        color: #cccccc;
+        list-style-type: none;
+      }
+
+      .state9 {
+        background-color: #32db64;
+        font-size: xx-large;
+        font-weight: bold;
+        text-align: center;
+        list-style-type: none;
+      }
+
+      input {
+        height: 30px;
+        width: 30px;
+        border: none;
+        text-align: center;
+        font-size: large;
+      }
+
+      button {
+        background-color: #24a;
+        border: none;
+        border-radius: 5px;
+        color: white;
+        padding: 15px 32px;
+        margin: 5px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+      }
+
+      div {
+        text-align: center;
+      }
+    </style>
+    <script>
+      function strikeAName() {
+        els = document.getElementsByTagName("li");
+        var selel = Math.trunc(Math.random() * els.length); // Pick one to remove from list
+        els[selel].className = "state1"; // Remove by tagging with classname
+
+        // Count how many are left in the list
+        var nbleft = 0;
+        for (i = 0; i < els.length; i++) {
+          if (els[i].className == "state0") {
+            nbleft++;
+          }
+        }
+        if (nbleft <= document.getElementById("nb").value)
+          // Only one survivor
+          setTimeout(() => {
+            // Wait a bit ... just for show
+            for (i = 0; i < els.length; i++) {
+              if (els[i].className == "state0") {
+                els[i].className = "state9"; // Highlight the winner(s)
+              }
+            }
+          }, 500);
+        // more than one left
+        else
+          setTimeout(() => {
+            strikeAName(); // continue  ...
+          }, 200);
+      }
+
+      function start() {
+        document.getElementById("selection").style.display = "none";
+        setTimeout(() => {
+          // Wait a bit before starting
+          strikeAName();
+        }, 1000);
+      }
+    </script>
+  </head>
+  <body>
+    <div id="selection">
+      Sélectionner <input id="nb" type="number" value="1" /> personnes ,
+      <button onclick="start()">On y va!</button>
+    </div>
+    <li class="state0">Yohan</li>
+    <li class="state0">Dario</li>
+    <li class="state0">Timothy</li>
+    <li class="state0">Esteban</li>
+    <li class="state0">Alessio</li>
+    <li class="state0">Quentin</li>
+    <li class="state0">Luke</li>
+    <li class="state0">Cyril</li>
+    <li class="state0">Thibaud</li>
+    <li class="state0">Matthieu</li>
+    <li class="state0">William</li>
+    <li class="state0">Mateja</li>
+    <li class="state0">Nima</li>
+    <li class="state0">Amir</li>
+  </body>
+  <script>
+    // Allow to remove some people from the list by clicking them out
+    lis = document.getElementsByTagName("li");
+    for (i = 0; i < lis.length; i++)
+      lis[i].addEventListener("click", function (ev) {
+        ev.target.className = "state1"; // Remove by tagging with classname
+      });
+  </script>
+</html>
